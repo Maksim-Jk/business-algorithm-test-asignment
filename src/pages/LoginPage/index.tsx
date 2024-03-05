@@ -1,5 +1,6 @@
 import {useAuth} from "@/contexts/AuthProvider.tsx";
 import {useNavigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 const LoginPage = () => {
     const {setIsAuth} = useAuth();
@@ -12,7 +13,7 @@ const LoginPage = () => {
     return (
         <>
             <div>LoginPage</div>
-            <button onClick={handleLogin}>Login</button>
+            <Button onClick={handleLogin} variant='contained'>Login</Button>
         </>
     )
 }

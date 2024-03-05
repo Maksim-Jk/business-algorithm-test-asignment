@@ -1,11 +1,11 @@
 import {createContext, useState, ReactNode, FC, SetStateAction, Dispatch, useContext} from 'react';
 
-interface AuthContextType {
+interface IAuthContext {
     isAuth: boolean;
     setIsAuth: Dispatch<SetStateAction<boolean>>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
     const [isAuth, setIsAuth] = useState(false);
@@ -17,7 +17,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
     )
 };
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = (): IAuthContext => {
     const context = useContext(AuthContext);
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider');
