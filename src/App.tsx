@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {FC} from 'react';
+import {Routes, Route, Navigate} from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import EmployeesPage from './pages/EmployeesPage';
+import CalendarPage from './pages/CalendarPage';
+import WorkListPage from './pages/WorkListPage';
+import {AuthProvider} from "@/contexts/AuthProvider.tsx";
+import HomeLayout from "@/layouts/HomeLayout.tsx";
+import ProtectedLayout from "@/layouts/ProtectedLayout.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: FC = () => {
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            <AuthProvider>
+                <div>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/login"/>}/>
+                        <Route element={<HomeLayout/>}>
+                            <Route path="/login" element={<LoginPage/>}/>
+                        </Route>
+                        <Route element={<ProtectedLayout/>}>
+                            <Route path="/employees" element={<EmployeesPage/>}/>
+                            <Route path="/calendar" element={<CalendarPage/>}/>
+                            <Route path="/work-list" element={<WorkListPage/>}/>
+                        </Route>
+                    </Routes>
+                </div>
+            </AuthProvider>
+        </>
+    )
 }
+
 
 export default App
