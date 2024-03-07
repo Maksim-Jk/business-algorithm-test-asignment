@@ -8,7 +8,8 @@ export const columns: IColumn[] = [
     {id: 'phoneNumber', label: 'Телефон', minWidth: 130},
     {id: 'address', label: 'Адрес', minWidth: 70},
     {id: 'email', label: 'Email', minWidth: 70},
-    {id: 'individualIdentificationNumber', label: 'ИИН', minWidth: 70}
+    {id: 'individualIdentificationNumber', label: 'ИИН', minWidth: 70},
+    {id: 'controls', label: 'Управление', minWidth: 70}
 ];
 
 export const filtersNameLibrary = {
