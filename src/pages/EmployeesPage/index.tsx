@@ -48,7 +48,7 @@ const EmployeesPage = () => {
         <Container>
             <EmployeesFilter filterOptions={filterOptions} setFilter={setFilter} filter={filter}/>
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
-                <TableContainer component={Paper} sx={{maxHeight: '70vh'}}>
+                <TableContainer component={Paper} sx={{maxHeight: {xs: '50vh', md: '70vh'}}}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
