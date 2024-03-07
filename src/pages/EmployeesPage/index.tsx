@@ -10,8 +10,11 @@ import {ChangeEvent, useState} from "react";
 import {TablePagination} from "@mui/material";
 import {useEmployeesData} from "@/hooks/useFetchEmployees.ts";
 import EmployeesFilter from "@/components/EmployeesFilter";
-import {IFilter} from "@/models/employeesData.type.ts";
+import {IFilter, IRows} from "@/models/employeesData.type.ts";
 import {columns} from "@/pages/EmployeesPage/lib/employeesTable.data.ts";
+
+import Button from "@mui/material/Button";
+import EmployeeInfoModal from "@/components/EmployeeInfoModal";
 
 
 const EmployeesPage = () => {
@@ -22,8 +25,9 @@ const EmployeesPage = () => {
         fullName: undefined,
         phoneNumber: undefined
     })
-
     const {rows, filterOptions} = useEmployeesData(filter)
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalEmployeeData, setModalEmployeeData] = useState<IRows | null>(null)
 
 
     const handleChangePage = (_: unknown, newPage: number) => {
@@ -34,6 +38,11 @@ const EmployeesPage = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const handleViewEmployee = (employeeData: IRows) => {
+        setModalEmployeeData(employeeData)
+        setModalOpen(true)
+    }
 
     return (
         <Container>
@@ -61,6 +70,7 @@ const EmployeesPage = () => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.fullName}>
                                             {columns.map((column) => {
+                                                if (column.id === 'controls') return null
                                                 const value = row[column.id as keyof typeof row];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
@@ -70,6 +80,9 @@ const EmployeesPage = () => {
                                                     </TableCell>
                                                 );
                                             })}
+                                            <TableCell key='controls'>
+                                                <Button onClick={() => handleViewEmployee(row)}>Открыть</Button>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -86,6 +99,7 @@ const EmployeesPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+            <EmployeeInfoModal modalOpen={modalOpen} setModalOpen={setModalOpen} modalEmployeeData={modalEmployeeData}/>
         </Container>
     );
 }
