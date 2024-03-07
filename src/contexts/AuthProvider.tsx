@@ -1,17 +1,36 @@
-import {createContext, useState, ReactNode, FC, SetStateAction, Dispatch, useContext} from 'react';
+import {createContext, useState, ReactNode, FC, SetStateAction, Dispatch, useContext, useEffect} from 'react';
+import {useNavigate} from "react-router-dom";
 
 interface IAuthContext {
-    isAuth: boolean;
-    setIsAuth: Dispatch<SetStateAction<boolean>>;
+    authUser: {
+        login: string;
+        password: string;
+    } | null;
+    setAuthUser: Dispatch<SetStateAction<IAuthContext['authUser']>>;
 }
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
-    const [isAuth, setIsAuth] = useState(false);
+    const [authUser, setAuthUser] = useState<IAuthContext['authUser']>(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const authUser = localStorage.getItem('authUser');
+        if (authUser) {
+            setAuthUser(JSON.parse(authUser));
+            navigate('/employees')
+        }
+    }, [])
+
+    useEffect(() => {
+        if (authUser) {
+            localStorage.setItem('authUser', JSON.stringify(authUser));
+        }
+    }, [authUser])
 
     return (
-        <AuthContext.Provider value={{isAuth, setIsAuth}}>
+        <AuthContext.Provider value={{authUser, setAuthUser}}>
             {children}
         </AuthContext.Provider>
     )

@@ -7,23 +7,27 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import {MouseEvent, useState} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
 
-const pages = [{
-    name: 'Сотрудники',
-    path: '/employees'
-},
+const pages = [
     {
-        name: 'Список работ',
-        path: '/work-list'
+        name: 'Сотрудники',
+        path: '/employees'
     },
     {
         name: 'Календарь',
         path: '/calendar'
-    }];
+    },
+    {
+        name: 'Список работ',
+        path: '/work-list'
+    }
+];
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -33,9 +37,14 @@ const Header = () => {
         setAnchorElNav(null);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('authUser')
+        navigate('/login')
+    }
+
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
+        <AppBar position="static" sx={{mb: 2}}>
+            <Container>
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
@@ -73,7 +82,7 @@ const Header = () => {
                                         textDecoration: 'none',
                                         color: '#000000'
                                     },
-                                    '&:has(.active)': {background: '#2182e7', color: '#ffffff'},
+                                    '&:has(.active)': {bgcolor: 'primary.dark', color: '#ffffff'},
                                     '&:has(.active) a': {color: '#ffffff'},
                                 }}>
                                     <NavLink to={page.path}>{page.name}</NavLink>
@@ -81,6 +90,7 @@ const Header = () => {
                             ))}
                         </Menu>
                     </Box>
+
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map((page) => (
                             <MenuItem
@@ -95,7 +105,7 @@ const Header = () => {
                                         display: 'block',
                                         textDecoration: 'none',
                                     },
-                                    '&:has(.active)': {background: '#2182e7'},
+                                    '&:has(.active)': {bgcolor: 'primary.dark'},
                                 }}
                             >
                                 <NavLink
@@ -108,6 +118,8 @@ const Header = () => {
                             </MenuItem>
                         ))}
                     </Box>
+                    <Button sx={{color: 'white', '&:hover': {bgcolor: 'primary.dark'}}}
+                            onClick={handleLogout}>Выйти</Button>
                 </Toolbar>
             </Container>
         </AppBar>

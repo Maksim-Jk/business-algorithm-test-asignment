@@ -3,9 +3,9 @@ import Header from "@/components/Header";
 import {useAuth} from "@/contexts/AuthProvider.tsx";
 
 const ProtectedLayout = () => {
-    const {isAuth} = useAuth();
+    const {authUser} = useAuth();
 
-    if (!isAuth) {
+    if (!authUser?.login) {
         return <Navigate to="/"/>;
     }
 

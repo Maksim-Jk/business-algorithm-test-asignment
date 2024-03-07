@@ -1,10 +1,11 @@
 import {Outlet} from "react-router-dom";
+import Container from "@mui/material/Container";
 
 const HomeLayout = () => {
     return (
-        <div>
+        <Container>
             <Outlet/>
-        </div>
+        </Container>
     )
 };
 
