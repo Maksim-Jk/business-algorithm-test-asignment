@@ -1,6 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
+import {useAuth} from "@/hooks";
+
 import Header from "@/components/Header";
-import {useAuth} from "@/contexts/AuthProvider.tsx";
 
 const ProtectedLayout = () => {
     const {authUser} = useAuth();

@@ -1,17 +1,19 @@
-import {IRows} from "@/models/employeesData.type.ts";
 import {FC} from "react";
+
 import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-interface IEmployeeInfoModal {
+import type {IRows} from "@/models";
+
+interface Props {
     modalOpen: boolean
     setModalOpen: (value: boolean) => void
     modalEmployeeData: IRows | null
 }
 
-const EmployeeInfoModal: FC<IEmployeeInfoModal> = ({modalOpen, setModalOpen, modalEmployeeData}) => {
+const EmployeeInfoModal: FC<Props> = ({modalOpen, setModalOpen, modalEmployeeData}) => {
     const handleClose = () => setModalOpen(false);
 
     return (

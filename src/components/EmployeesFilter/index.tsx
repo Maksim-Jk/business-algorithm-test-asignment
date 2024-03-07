@@ -1,19 +1,21 @@
+import {FC} from "react";
+
 import {Autocomplete} from "@mui/material";
 import TextField from "@mui/material/TextField";
-import {FC} from "react";
 import Box from "@mui/material/Box";
-import {IFilter, IFilterOptions} from "@/models/employeesData.type.ts";
-import {setFilterValues} from "@/helpers/setFilterValues.ts";
 import {filtersNameLibrary} from "@/pages/EmployeesPage/lib/employeesTable.data.ts";
 
-interface IEmployeesFilterProps {
+import {setFilterValues} from "@/helpers/setFilterValues.ts";
+import type {IFilter, IFilterOptions} from "@/models";
+
+
+interface Props {
     filterOptions: IFilterOptions;
     setFilter: (value: (prev: IFilter) => IFilter) => void;
     filter: IFilter
 }
 
-const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter, filter}) => {
-    console.log(Object.entries(filterOptions))
+const EmployeesFilter: FC<Props> = ({filterOptions, setFilter, filter}) => {
     return (
         <Box sx={{display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap'}}>
             {

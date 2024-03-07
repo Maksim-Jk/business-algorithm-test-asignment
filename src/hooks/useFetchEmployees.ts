@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {IData, IFilter, IFilterOptions, IRows} from "@/models/employeesData.type.ts";
+import type {IData, IFilter, IFilterOptions, IRows} from "@/models";
 
 export const useEmployeesData = (filter: IFilter) => {
     const [rows, setRows] = useState<IRows[]>([]);
