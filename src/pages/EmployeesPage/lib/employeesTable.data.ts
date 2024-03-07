@@ -1,4 +1,4 @@
-import {IColumn} from "@/models/employeesData.type.ts";
+import type {IColumn} from "@/models";
 
 export const columns: IColumn[] = [
     {id: 'id', label: 'ID', minWidth: 70},

@@ -1,4 +1,4 @@
-import {IFilter} from "@/models/employeesData.type.ts";
+import type {IFilter} from "@/models";
 
 export const setFilterValues = (obj: IFilter, key: keyof IFilter, val: string) => {
     const newObj: IFilter = {...obj};

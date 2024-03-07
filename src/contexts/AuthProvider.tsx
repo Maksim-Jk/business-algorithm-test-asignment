@@ -1,18 +1,11 @@
-import {createContext, useState, ReactNode, FC, SetStateAction, Dispatch, useContext, useEffect} from 'react';
+import {createContext, useState, ReactNode, FC, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
+import type {IAuthContext, IAuthUser} from "@/models";
 
-interface IAuthContext {
-    authUser: {
-        login: string;
-        password: string;
-    } | null;
-    setAuthUser: Dispatch<SetStateAction<IAuthContext['authUser']>>;
-}
-
-const AuthContext = createContext<IAuthContext | undefined>(undefined);
+export const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
-    const [authUser, setAuthUser] = useState<IAuthContext['authUser']>(null);
+    const [authUser, setAuthUser] = useState<IAuthUser | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,10 +29,3 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
     )
 };
 
-export const useAuth = (): IAuthContext => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-};

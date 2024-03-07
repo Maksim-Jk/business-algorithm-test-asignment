@@ -1,3 +1,6 @@
+import {MouseEvent, useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,24 +9,9 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import {MouseEvent, useState} from "react";
-import {NavLink, useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 
-const pages = [
-    {
-        name: 'Сотрудники',
-        path: '/employees'
-    },
-    {
-        name: 'Календарь',
-        path: '/calendar'
-    },
-    {
-        name: 'Список работ',
-        path: '/work-list'
-    }
-];
+import {navBarPagesRoutes} from "@/components/Header/lib/variables.ts";
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -75,7 +63,7 @@ const Header = () => {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {pages.map((page) => (
+                            {navBarPagesRoutes.map((page) => (
                                 <MenuItem key={page.name} onClick={handleCloseNavMenu} sx={{
                                     'a': {
                                         display: 'block',
@@ -92,7 +80,7 @@ const Header = () => {
                     </Box>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
+                        {navBarPagesRoutes.map((page) => (
                             <MenuItem
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
