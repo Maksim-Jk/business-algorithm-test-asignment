@@ -1,18 +1,20 @@
 import {Autocomplete} from "@mui/material";
 import TextField from "@mui/material/TextField";
-import {IFilter, IFilterOption, IFilterOptions} from "@/hooks/useFetchEmployees.ts";
 import {FC} from "react";
 import Box from "@mui/material/Box";
+import {IFilter, IFilterOptions} from "@/models/employeesData.type.ts";
+import {setFilterValues} from "@/helpers/setFilterValues.ts";
 
 interface IEmployeesFilterProps {
     filterOptions: IFilterOptions;
     setFilter: (value: (prev: IFilter) => IFilter) => void;
+    filter: IFilter
 }
 
-const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter}) => {
+const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter, filter}) => {
     console.log(Object.entries(filterOptions))
     return (
-        <Box sx={{display: 'flex', gap: 2, mb: 2}}>
+        <Box sx={{display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap'}}>
             {
                 Object.entries(filterOptions).map(([key, value]) => (
                     <Autocomplete
@@ -20,10 +22,12 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter}) 
                         disablePortal
                         id={`combo-box-${key}`}
                         options={value}
-                        sx={{width: 300}}
+                        sx={{width: {xs: '100%', md: '260px'},}}
+                        value={filter[key as keyof IFilter] || ''}
+                        isOptionEqualToValue={(option, val) => option === val}
                         renderInput={(params) => <TextField {...params} label={key}/>}
-                        onChange={(_, val: IFilterOption | null) => {
-                            setFilter((prev) => setFilterValues(prev, key as keyof IFilter, val?.label as string))
+                        onChange={(_, val: string | null) => {
+                            setFilter((prev) => setFilterValues(prev, key as keyof IFilter, val as string))
                         }
                         }
                     />
@@ -34,16 +38,3 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter}) 
 };
 
 export default EmployeesFilter;
-
-
-const setFilterValues = (obj: IFilter, key: keyof IFilter, val: string) => {
-    const newObj: IFilter = { ...obj };
-
-    Object.keys(newObj).forEach((filterKey: string) => {
-        const typedKey = filterKey as keyof IFilter;
-        newObj[typedKey] = undefined;
-    });
-
-    newObj[key] = val;
-    return newObj;
-};

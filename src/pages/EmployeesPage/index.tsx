@@ -8,28 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {ChangeEvent, useState} from "react";
 import {TablePagination} from "@mui/material";
-import {IFilter, useEmployeesData} from "@/hooks/useFetchEmployees.ts";
+import {useEmployeesData} from "@/hooks/useFetchEmployees.ts";
 import EmployeesFilter from "@/components/EmployeesFilter";
+import {IFilter} from "@/models/employeesData.type.ts";
+import {columns} from "@/pages/EmployeesPage/lib/employeesTable.data.ts";
 
-
-interface IColumn {
-    id: string;
-    label: string;
-    minWidth: number;
-    align?: 'left' | 'center' | 'right';
-    format?: (value: number | string) => string;
-}
-
-const columns: IColumn[] = [
-    {id: 'id', label: 'ID', minWidth: 70},
-    {id: 'fullName', label: 'Полное имя', minWidth: 70},
-    {id: 'gender', label: 'Пол', minWidth: 70},
-    {id: 'birthDate', label: 'Дата рождения', minWidth: 70},
-    {id: 'phoneNumber', label: 'Телефон', minWidth: 130},
-    {id: 'address', label: 'Адрес', minWidth: 70},
-    {id: 'email', label: 'Email', minWidth: 70},
-    {id: 'individualIdentificationNumber', label: 'ИИН', minWidth: 70}
-];
 
 const EmployeesPage = () => {
     const [page, setPage] = useState(0);
@@ -54,7 +37,7 @@ const EmployeesPage = () => {
 
     return (
         <Container>
-            <EmployeesFilter filterOptions={filterOptions} setFilter={setFilter}/>
+            <EmployeesFilter filterOptions={filterOptions} setFilter={setFilter} filter={filter}/>
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
                 <TableContainer component={Paper} sx={{maxHeight: '70vh'}}>
                     <Table stickyHeader aria-label="sticky table">

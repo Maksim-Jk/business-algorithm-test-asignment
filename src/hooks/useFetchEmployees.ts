@@ -1,42 +1,5 @@
 import {useEffect, useState} from "react";
-
-interface IData {
-    firstName: string
-    lastName: string
-    surName: string
-    gender: string
-    birthDate: string
-    phoneNumber: string
-    address: string
-    email: string
-    individualIdentificationNumber: string
-}
-
-interface IRows {
-    fullName: string
-    gender: string
-    birthDate: string
-    phoneNumber: string
-    address: string
-    email: string
-    individualIdentificationNumber: string
-}
-
-export interface IFilter {
-    individualIdentificationNumber: string | undefined
-    fullName: string | undefined
-    phoneNumber: string | undefined
-}
-
-export interface IFilterOption {
-    label: string
-}
-
-export interface IFilterOptions {
-    individualIdentificationNumber: IFilterOption[]
-    fullName: IFilterOption[]
-    phoneNumber: IFilterOption[]
-}
+import {IData, IFilter, IFilterOptions, IRows} from "@/models/employeesData.type.ts";
 
 export const useEmployeesData = (filter: IFilter) => {
     const [rows, setRows] = useState<IRows[]>([]);
@@ -102,8 +65,8 @@ function concat(...args: string[]): string {
 }
 
 const getFilterOptions = (rows: IRows[]) => {
-    const individualIdentificationNumber = rows.map(row => ({label: row.individualIdentificationNumber}));
-    const fullName = rows.map(row => ({label: row.fullName}));
-    const phoneNumber = rows.map(row => ({label: row.phoneNumber}));
+    const individualIdentificationNumber = rows.map(row => (row.individualIdentificationNumber));
+    const fullName = rows.map(row => (row.fullName));
+    const phoneNumber = rows.map(row => (row.phoneNumber));
     return {individualIdentificationNumber, fullName, phoneNumber}
 }
