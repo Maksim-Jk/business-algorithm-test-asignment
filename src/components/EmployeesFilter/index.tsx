@@ -4,6 +4,7 @@ import {FC} from "react";
 import Box from "@mui/material/Box";
 import {IFilter, IFilterOptions} from "@/models/employeesData.type.ts";
 import {setFilterValues} from "@/helpers/setFilterValues.ts";
+import {filtersNameLibrary} from "@/pages/EmployeesPage/lib/employeesTable.data.ts";
 
 interface IEmployeesFilterProps {
     filterOptions: IFilterOptions;
@@ -24,8 +25,9 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({filterOptions, setFilter, f
                         options={value}
                         sx={{width: {xs: '100%', md: '260px'},}}
                         value={filter[key as keyof IFilter] || ''}
-                        isOptionEqualToValue={(option, val) => option === val}
-                        renderInput={(params) => <TextField {...params} label={key}/>}
+                        renderInput={(params) => (
+                            <TextField {...params} label={filtersNameLibrary[key as keyof IFilter]}/>
+                        )}
                         onChange={(_, val: string | null) => {
                             setFilter((prev) => setFilterValues(prev, key as keyof IFilter, val as string))
                         }

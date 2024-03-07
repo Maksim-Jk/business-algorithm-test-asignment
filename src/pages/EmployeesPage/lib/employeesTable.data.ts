@@ -10,3 +10,9 @@ export const columns: IColumn[] = [
     {id: 'email', label: 'Email', minWidth: 70},
     {id: 'individualIdentificationNumber', label: 'ИИН', minWidth: 70}
 ];
+
+export const filtersNameLibrary = {
+    individualIdentificationNumber: 'ИИН',
+    fullName: 'ФИО',
+    phoneNumber: 'Номер телефона'
+}
