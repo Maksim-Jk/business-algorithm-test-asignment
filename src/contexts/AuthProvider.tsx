@@ -14,7 +14,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({children}) => {
             setAuthUser(JSON.parse(authUser));
             navigate('/employees')
         }
-    }, [navigate])
+    }, [])
 
     useEffect(() => {
         if (authUser) {
