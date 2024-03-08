@@ -1,6 +1,6 @@
-import type {IColumn} from "@/models";
+import type {IEmployeesColumn} from "@/models";
 
-export const columns: IColumn[] = [
+export const columns: IEmployeesColumn[] = [
     {id: 'id', label: 'ID', minWidth: 70},
     {id: 'fullName', label: 'Полное имя', minWidth: 70},
     {id: 'gender', label: 'Пол', minWidth: 70},

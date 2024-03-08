@@ -8,18 +8,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import Button from "@mui/material/Button";
 
-import {columns,} from "@/components/EmployeesTable/lib/employeesTable.data.ts";
+import type {IWorkListRows} from "@/models";
+import {columns} from "@/components/WorkListTable/lib/workListTable.data.ts";
 
-import type {IEmployeesRows} from "@/models";
 
 interface Props {
-    rows: IEmployeesRows[],
-    handleViewEmployee: (employeeData: IEmployeesRows) => void
+    rows: IWorkListRows[],
+    handleViewEmployee?: (employeeData: IWorkListRows) => void
 }
 
-const EmployeesTable: FC<Props> = ({rows, handleViewEmployee}) => {
+const WorkListTable: FC<Props> = ({rows}) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const handleChangePage = (_: unknown, newPage: number) => {
@@ -52,9 +51,8 @@ const EmployeesTable: FC<Props> = ({rows, handleViewEmployee}) => {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.fullName}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
-                                            if (column.id === 'controls') return null
                                             const value = row[column.id as keyof typeof row];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
@@ -64,9 +62,6 @@ const EmployeesTable: FC<Props> = ({rows, handleViewEmployee}) => {
                                                 </TableCell>
                                             );
                                         })}
-                                        <TableCell key='controls'>
-                                            <Button onClick={() => handleViewEmployee(row)}>Открыть</Button>
-                                        </TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -86,4 +81,4 @@ const EmployeesTable: FC<Props> = ({rows, handleViewEmployee}) => {
     );
 };
 
-export default EmployeesTable;
+export default WorkListTable;

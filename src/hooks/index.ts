@@ -1,2 +1,2 @@
 export * from './useAuth';
-export * from './useFetchEmployees';
+export * from './useEmployeesData.ts';

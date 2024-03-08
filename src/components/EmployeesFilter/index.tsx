@@ -3,16 +3,16 @@ import {FC} from "react";
 import {Autocomplete} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import {filtersNameLibrary} from "@/pages/EmployeesPage/lib/employeesTable.data.ts";
+import {filtersNameLibrary} from "@/components/EmployeesTable/lib/employeesTable.data.ts";
 
 import {setFilterValues} from "@/helpers/setFilterValues.ts";
-import type {IFilter, IFilterOptions} from "@/models";
+import type {IEmployeesFilter, IEmployeesFilterOptions} from "@/models";
 
 
 interface Props {
-    filterOptions: IFilterOptions;
-    setFilter: (value: (prev: IFilter) => IFilter) => void;
-    filter: IFilter
+    filterOptions: IEmployeesFilterOptions;
+    setFilter: (value: (prev: IEmployeesFilter) => IEmployeesFilter) => void;
+    filter: IEmployeesFilter
 }
 
 const EmployeesFilter: FC<Props> = ({filterOptions, setFilter, filter}) => {
@@ -26,12 +26,12 @@ const EmployeesFilter: FC<Props> = ({filterOptions, setFilter, filter}) => {
                         id={`combo-box-${key}`}
                         options={value}
                         sx={{width: {xs: '100%', md: '260px'},}}
-                        value={filter[key as keyof IFilter] || ''}
+                        value={filter[key as keyof IEmployeesFilter] || ''}
                         renderInput={(params) => (
-                            <TextField {...params} label={filtersNameLibrary[key as keyof IFilter]}/>
+                            <TextField {...params} label={filtersNameLibrary[key as keyof IEmployeesFilter]}/>
                         )}
                         onChange={(_, val: string | null) => {
-                            setFilter((prev) => setFilterValues(prev, key as keyof IFilter, val as string))
+                            setFilter((prev) => setFilterValues(prev, key as keyof IEmployeesFilter, val as string))
                         }
                         }
                     />

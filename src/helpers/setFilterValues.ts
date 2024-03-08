@@ -1,10 +1,10 @@
-import type {IFilter} from "@/models";
+import type {IEmployeesFilter} from "@/models";
 
-export const setFilterValues = (obj: IFilter, key: keyof IFilter, val: string) => {
-    const newObj: IFilter = {...obj};
+export const setFilterValues = (obj: IEmployeesFilter, key: keyof IEmployeesFilter, val: string) => {
+    const newObj: IEmployeesFilter = {...obj};
 
     Object.keys(newObj).forEach((filterKey: string) => {
-        const typedKey = filterKey as keyof IFilter;
+        const typedKey = filterKey as keyof IEmployeesFilter;
         newObj[typedKey] = undefined;
     });
 

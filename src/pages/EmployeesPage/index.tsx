@@ -6,11 +6,11 @@ import EmployeesFilter from "@/components/EmployeesFilter";
 import EmployeeInfoModal from "@/components/EmployeeInfoModal";
 import EmployeesTable from "@/components/EmployeesTable";
 
-import type {IFilter, IRows} from "@/models";
+import type {IEmployeesFilter, IEmployeesRows} from "@/models";
 
 
 const EmployeesPage = () => {
-    const [filter, setFilter] = useState<IFilter>({
+    const [filter, setFilter] = useState<IEmployeesFilter>({
         individualIdentificationNumber: undefined,
         fullName: undefined,
         phoneNumber: undefined
@@ -18,10 +18,10 @@ const EmployeesPage = () => {
     const {rows, filterOptions} = useEmployeesData(filter)
 
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalEmployeeData, setModalEmployeeData] = useState<IRows | null>(null)
+    const [modalEmployeeData, setModalEmployeeData] = useState<IEmployeesRows | null>(null)
 
 
-    const handleViewEmployee = (employeeData: IRows) => {
+    const handleViewEmployee = (employeeData: IEmployeesRows) => {
         setModalEmployeeData(employeeData)
         setModalOpen(true)
     }

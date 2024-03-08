@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import type {IData, IFilter, IFilterOptions, IRows} from "@/models";
+import type {IEmployeesData, IEmployeesFilter, IEmployeesFilterOptions, IEmployeesRows} from "@/models";
 
-export const useEmployeesData = (filter: IFilter) => {
-    const [rows, setRows] = useState<IRows[]>([]);
-    const [filteredRows, setFilteredRows] = useState<IRows[]>([]);
+export const useEmployeesData = (filter: IEmployeesFilter) => {
+    const [rows, setRows] = useState<IEmployeesRows[]>([]);
+    const [filteredRows, setFilteredRows] = useState<IEmployeesRows[]>([]);
 
-    const [filterOptions, setFilterOptions] = useState<IFilterOptions>({
+    const [filterOptions, setFilterOptions] = useState<IEmployeesFilterOptions>({
         individualIdentificationNumber: [],
         fullName: [],
         phoneNumber: []
@@ -19,7 +19,7 @@ export const useEmployeesData = (filter: IFilter) => {
                     throw new Error('Failed to fetch data');
                 }
                 const data = await res.json();
-                const updatedRows = data.map((row: IData) => ({
+                const updatedRows = data.map((row: IEmployeesData) => ({
                     ...row,
                     fullName: concat(row.firstName, row.lastName, row.surName)
                 }));
@@ -64,7 +64,7 @@ function concat(...args: string[]): string {
     return args.join(' ');
 }
 
-const getFilterOptions = (rows: IRows[]) => {
+const getFilterOptions = (rows: IEmployeesRows[]) => {
     const individualIdentificationNumber = rows.map(row => (row.individualIdentificationNumber));
     const fullName = rows.map(row => (row.fullName));
     const phoneNumber = rows.map(row => (row.phoneNumber));
