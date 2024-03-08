@@ -1,7 +1,7 @@
 import {useState} from "react";
+import {useEmployeesData} from "@/hooks";
 
 import Container from "@mui/material/Container";
-import {useEmployeesData} from "@/hooks";
 import EmployeesFilter from "@/components/EmployeesFilter";
 import EmployeeInfoModal from "@/components/EmployeeInfoModal";
 import EmployeesTable from "@/components/EmployeesTable";
