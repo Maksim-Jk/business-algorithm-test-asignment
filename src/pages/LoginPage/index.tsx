@@ -1,3 +1,7 @@
+import {FormEvent, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "@/hooks";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,15 +10,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {useAuth} from "@/contexts/AuthProvider.tsx";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 
 const LoginPage = () => {
     const {setAuthUser} = useAuth();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({login: 'init', password: 'init'})
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (userData.login.length &&
             userData.password.length &&

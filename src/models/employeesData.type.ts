@@ -1,4 +1,4 @@
-export interface IColumn {
+export interface IEmployeesColumn {
     id: string;
     label: string;
     minWidth: number;
@@ -6,7 +6,8 @@ export interface IColumn {
     format?: (value: number | string) => string;
 }
 
-export interface IData {
+export interface IEmployeesData {
+    id: number
     firstName: string
     lastName: string
     surName: string
@@ -18,7 +19,8 @@ export interface IData {
     individualIdentificationNumber: string
 }
 
-export interface IRows {
+export interface IEmployeesRows {
+    id: number
     fullName: string
     gender: string
     birthDate: string
@@ -28,14 +30,14 @@ export interface IRows {
     individualIdentificationNumber: string
 }
 
-export interface IFilter {
+export interface IEmployeesFilter {
     individualIdentificationNumber: string | undefined
     fullName: string | undefined
     phoneNumber: string | undefined
 }
 
 
-export interface IFilterOptions {
+export interface IEmployeesFilterOptions {
     individualIdentificationNumber: string[]
     fullName: string[]
     phoneNumber: string[]
