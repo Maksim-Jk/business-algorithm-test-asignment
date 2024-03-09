@@ -4,20 +4,14 @@ import {Modal, SxProps, Theme} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {IAuthUser} from "@/models";
 import TextField from "@mui/material/TextField";
+
 import {getFormattedDate} from "@/helpers";
+import type {IAuthUser, IWorkData} from "@/models";
 
 interface Props {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
-}
-
-interface IWorkData {
-    id?: number
-    name?: string
-    employeeFullName?: string
-    date?: string
 }
 
 const WorkAddModal: FC<Props> = ({isModalOpen, setIsModalOpen}) => {
@@ -36,10 +30,8 @@ const WorkAddModal: FC<Props> = ({isModalOpen, setIsModalOpen}) => {
                 date: getFormattedDate(),
                 id: existingData.length + 1
             }
-            console.log(newData)
             setWorkData(newData)
         }
-
     }, [isModalOpen]);
 
     const handleClose = () => setIsModalOpen(false);
