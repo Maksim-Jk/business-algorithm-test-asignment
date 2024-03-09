@@ -47,6 +47,13 @@ const WorkListTable: FC<Props> = ({rows}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        {rows.length === 0 && (
+                            <TableRow>
+                                <TableCell align="center" colSpan={columns.length}>
+                                    Данные не найдены
+                                </TableCell>
+                            </TableRow>
+                        )}
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {

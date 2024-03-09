@@ -1,4 +1,4 @@
-import {Dispatch, FC, SetStateAction, useState} from "react";
+import {Dispatch, FC, SetStateAction} from "react";
 
 import Box from "@mui/material/Box";
 import {DatePicker} from "@mui/x-date-pickers";
@@ -15,35 +15,36 @@ interface Props {
 }
 
 const WorkListFilter: FC<Props> = ({filter, setFilter, fullNameOptions}) => {
-    const handleDateChange = (newVal: dayjs.Dayjs | null, field: "dateFrom" | "to") => {
+    const handleDateChange = (newVal: dayjs.Dayjs | null, field: "dateFrom" | "dateTo") => {
         setFilter({...filter, [field]: dayjs(newVal)})
     }
     return (
-        <Box sx={{display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap'}}>
+        <Box sx={{display: 'flex', gap: 2, flexWrap: 'wrap'}}>
             <DatePicker
                 label="Дата от"
                 value={filter.dateFrom}
+                sx={{width: {xs: '100%', md: '260px'}}}
                 onChange={(newVal) => handleDateChange(newVal, "dateFrom")}
             />
             <DatePicker
                 label="Дата до"
                 value={filter.dateTo}
-                onChange={(newVal) => handleDateChange(newVal, "to")}
+                sx={{width: {xs: '100%', md: '260px'}}}
+                onChange={(newVal) => handleDateChange(newVal, "dateTo")}
             />
             <Autocomplete
                 key={'employeeFullName'}
                 disablePortal
                 id={`combo-box-employeeFullName`}
                 options={fullNameOptions}
-                sx={{width: {xs: '100%', md: '260px'},}}
+                sx={{width: {xs: '100%', md: '260px'}}}
                 renderInput={(params) => (
                     <TextField {...params} label='Полное имя'/>
                 )}
                 onChange={(_, val: string | null) => {
-                    setFilter((prev) => ({...prev, fullName: val}))
+                    setFilter((prev) => ({...prev, employeeFullName: val}))
                 }}
             />
-
         </Box>
     );
 };

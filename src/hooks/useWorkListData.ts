@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
 import {
-    IEmployeesData,
+    IEmployeesData, IWorkListFilter,
     IWorkListRows
 } from "@/models";
 import {fetchData} from "@/helpers/fetchData.ts";
 
-export const useWorkListData = () => {
+export const useWorkListData = (filter: IWorkListFilter, isModalOpen: boolean) => {
     const [rows, setRows] = useState<IWorkListRows[]>([]);
-    // const [filteredRows, setFilteredRows] = useState<IWorkListRows[]>([]);
-    // const [filterOptions, setFilterOptions] = useState<IWorkListFilterOptions>({
-    //     employeeId: [],
-    //     employeeFullName: [],
-    //     date: []
-    // })
+    const [filteredRows, setFilteredRows] = useState<IWorkListRows[]>([]);
 
     useEffect(() => {
-        const fetchEmployeesData = async () => {
+        const getWorkListData = async () => {
+            if (localStorage.getItem('workListData')) {
+                const data = JSON.parse(localStorage.getItem('workListData')!);
+                setRows(data);
+                return
+            }
             const employeesData: IEmployeesData[] = await fetchData('data/employees.json');
             const worksData: IWorkListRows[] = await fetchData('data/works.json');
 
@@ -34,35 +34,34 @@ export const useWorkListData = () => {
                 }
             })
             setRows(updatedRows);
+            localStorage.setItem('workListData', JSON.stringify(updatedRows));
         };
-        fetchEmployeesData()
-    }, [])
+        getWorkListData()
+    }, [isModalOpen])
 
 
-    // useEffect(() => {
-    //     let filteredRows = rows;
-    //
-    //     if (filter.individualIdentificationNumber) {
-    //         filteredRows = filteredRows
-    //             .filter(row => row.individualIdentificationNumber === filter.individualIdentificationNumber)
-    //     }
-    //
-    //     if (filter.fullName) {
-    //         filteredRows = filteredRows
-    //             .filter(row => row.fullName === filter.fullName)
-    //     }
-    //
-    //     if (filter.phoneNumber) {
-    //         filteredRows = filteredRows
-    //             .filter(row => row.phoneNumber === filter.phoneNumber)
-    //     }
-    //
-    //     setFilteredRows(filteredRows);
-    // }, [filter, rows]);
+    useEffect(() => {
+        let filteredRows = rows;
 
-    // const rowsToReturn = filter.individualIdentificationNumber || filter.fullName || filter.phoneNumber ? filteredRows : rows
+        if (filter.dateFrom) {
+            filteredRows = filteredRows.filter(row => filter.dateFrom?.isBefore(row.date));
+        }
+
+        if (filter.dateTo) {
+            filteredRows = filteredRows.filter(row => filter.dateTo?.isAfter(row.date));
+        }
+
+        if (filter.employeeFullName) {
+            filteredRows = filteredRows
+                .filter(row => row.employeeFullName === filter.employeeFullName)
+        }
+
+        setFilteredRows(filteredRows);
+    }, [filter, rows]);
+
+    const rowsToReturn = filter.dateFrom || filter.dateTo || filter.employeeFullName ? filteredRows : rows
     const fullNameOptions = [...new Set(rows.map(row => (row.employeeFullName)))];
-    return {rows, fullNameOptions};
+    return {rows: rowsToReturn, fullNameOptions};
 }
 
 function concat(...args: string[]): string {

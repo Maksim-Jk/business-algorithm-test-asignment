@@ -32,5 +32,5 @@ export interface IWorkListFilterOptions {
 export interface IWorkListFilter {
     dateFrom: dayjs.Dayjs | null
     dateTo: dayjs.Dayjs | null
-    fullName: string | null
+    employeeFullName: string | null
 }
