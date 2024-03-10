@@ -1,6 +1,6 @@
 import {ChangeEvent, FC, useEffect, useState} from "react";
 
-import {Modal, SxProps, Theme} from "@mui/material";
+import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 
 import {getFormattedDate} from "@/helpers";
 import type {IAuthUser, IWorkData} from "@/models";
+import {modalStyles} from "@/styles/modal.styles.ts";
 
 interface Props {
     isModalOpen: boolean
@@ -51,19 +52,6 @@ const WorkAddModal: FC<Props> = ({isModalOpen, setIsModalOpen}) => {
         setIsError(false)
     }
 
-    const styles: SxProps<Theme> = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        borderRadius: 2,
-        p: 4,
-
-    }
-
     return (
         <Modal
             open={isModalOpen}
@@ -71,15 +59,25 @@ const WorkAddModal: FC<Props> = ({isModalOpen, setIsModalOpen}) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={styles}>
+            <Box sx={modalStyles}>
+                <Button variant='text' onClick={handleClose}
+                        disableRipple
+                        sx={{
+                            padding: 0,
+                            position: 'absolute',
+                            top: '26px',
+                            right: '26px',
+                            width: '38px',
+                            height: '38px',
+                            minWidth: 'auto'
+                        }}>
+                    X
+                </Button>
                 <Typography variant="h5" gutterBottom>
                     Добавить работу
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                     Сотрудник: {workData?.employeeFullName}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Опишите выполненную работу:
                 </Typography>
                 <TextField
                     required
@@ -95,7 +93,7 @@ const WorkAddModal: FC<Props> = ({isModalOpen, setIsModalOpen}) => {
                 <Typography variant="body1" gutterBottom sx={{mt: 2}}>
                     Дата выполнения: {workData?.date}
                 </Typography>
-                <Button onClick={handleSubmit} variant="contained" sx={{mt: 2, width: '100%', p: 1}}>
+                <Button size='medium' onClick={handleSubmit} variant="contained" sx={{mt: 2, width: '100%'}}>
                     Добавить
                 </Button>
             </Box>

@@ -11,23 +11,20 @@ import CalendarPage from '@/pages/CalendarPage';
 import WorkListPage from '@/pages/WorkListPage';
 
 const App: FC = () => {
-
     return (
         <>
             <AuthProvider>
-                <div>
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/login"/>}/>
-                        <Route element={<HomeLayout/>}>
-                            <Route path="/login" element={<LoginPage/>}/>
-                        </Route>
-                        <Route element={<ProtectedLayout/>}>
-                            <Route path="/employees" element={<EmployeesPage/>}/>
-                            <Route path="/calendar" element={<CalendarPage/>}/>
-                            <Route path="/work-list" element={<WorkListPage/>}/>
-                        </Route>
-                    </Routes>
-                </div>
+                <Routes>pn
+                    <Route path="/" element={<Navigate to="/login"/>}/>
+                    <Route element={<HomeLayout/>}>
+                        <Route path="/login" element={<LoginPage/>}/>
+                    </Route>
+                    <Route element={<ProtectedLayout/>}>
+                        <Route path="/employees" element={<EmployeesPage/>}/>
+                        <Route path="/calendar" element={<CalendarPage/>}/>
+                        <Route path="/work-list" element={<WorkListPage/>}/>
+                    </Route>
+                </Routes>
             </AuthProvider>
         </>
     )

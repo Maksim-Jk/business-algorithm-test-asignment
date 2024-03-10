@@ -29,6 +29,7 @@ const WorkListTable: FC<Props> = ({rows}) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
             <TableContainer component={Paper} sx={{maxHeight: {xs: '50vh', md: '70vh'}}}>

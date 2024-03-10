@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import type {IEmployeesRows} from "@/models";
+import {modalStyles} from "@/styles/modal.styles.ts";
 
 interface Props {
     modalOpen: boolean
@@ -15,17 +16,6 @@ interface Props {
 
 const EmployeeInfoModal: FC<Props> = ({modalOpen, setModalOpen, modalEmployeeData}) => {
     const handleClose = () => setModalOpen(false);
-    const styles = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        borderRadius: 2,
-        p: 4,
-    }
 
     return (
         <Modal
@@ -35,9 +25,22 @@ const EmployeeInfoModal: FC<Props> = ({modalOpen, setModalOpen, modalEmployeeDat
             aria-describedby="modal-modal-description"
         >
             {modalEmployeeData === null
-                ? (<Box sx={styles}>Не удалось получить данные</Box>)
+                ? (<Box sx={modalStyles}>Не удалось получить данные</Box>)
                 : (
-                    <Box sx={styles}>
+                    <Box sx={modalStyles}>
+                        <Button variant='text' onClick={handleClose}
+                                disableRipple
+                                sx={{
+                                    padding: 0,
+                                    position: 'absolute',
+                                    top: '26px',
+                                    right: '26px',
+                                    width: '38px',
+                                    height: '38px',
+                                    minWidth: 'auto'
+                                }}>
+                            X
+                        </Button>
                         <Typography variant="h5" gutterBottom>
                             {modalEmployeeData.fullName}
                         </Typography>
@@ -56,9 +59,7 @@ const EmployeeInfoModal: FC<Props> = ({modalOpen, setModalOpen, modalEmployeeDat
                         <Typography variant="body1" gutterBottom>
                             День рождения: {modalEmployeeData.birthDate}
                         </Typography>
-                        <Button onClick={handleClose} variant="contained" sx={{mt: 2}}>
-                            Закрыть
-                        </Button>
+
                     </Box>
                 )}
         </Modal>

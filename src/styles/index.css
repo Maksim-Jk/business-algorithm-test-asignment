@@ -1,0 +1,43 @@
+:root {
+    --primary-main: #3788d8;
+    --primary-dark: #115293;
+    --primary-light: #d4ebff;
+
+    --fc-button-bg-color: var(--primary-main);
+    --fc-button-hover-bg-color: var(--primary-dark);
+    --fc-button-border-color: var(--primary-main);
+    --fc-button-hover-border-color: var(--primary-dark);
+    --fc-today-bg-color: var(--primary-light);
+}
+
+* {
+    font-family: "Roboto Light", sans-serif;
+}
+
+.fc-button {
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+}
+
+.fc-button-group {
+    display: flex;
+    gap: 6px;
+}
+
+.fc-event-title {
+    padding: 8px 8px !important;
+    white-space: break-spaces;
+    word-break: break-word;
+}
+
+.fc-col-header-cell {
+    padding: 8px 0 !important;
+}
+
+.fc-toolbar-chunk {
+    display: flex;
+}
+
+.fc-daygrid-day-frame {
+    min-height: auto !important;
+}

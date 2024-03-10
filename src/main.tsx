@@ -7,10 +7,11 @@ import App from '@/App.tsx'
 import {createTheme, ThemeProvider} from "@mui/material";
 import {ruRU} from "@mui/material/locale";
 
-
 import './styles/reset.css'
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+
+import './styles/index.css'
 
 const theme = createTheme(
     {

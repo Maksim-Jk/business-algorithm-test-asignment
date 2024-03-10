@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {useWorkListData} from "@/hooks/useWorkListData.ts";
 
 import Container from "@mui/material/Container";
 import WorkListTable from "@/components/WorkListTable";
@@ -8,7 +7,9 @@ import Button from "@mui/material/Button";
 import WorkAddModal from "@/components/WorkAddModal";
 import Box from "@mui/material/Box";
 
+import {useWorkListData} from "@/hooks";
 import {IWorkListFilter} from "@/models";
+import Typography from "@mui/material/Typography";
 
 const WorkListPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,16 +22,17 @@ const WorkListPage = () => {
 
     return (
         <Container>
+            <Typography variant='h4' component='h1' sx={{mb: 2}}>Список работ</Typography>
             <Box
                 sx={{display: {xs: 'block', md: 'flex'}, mb: 2, justifyContent: 'space-between'}}>
                 <WorkListFilter filter={filter} setFilter={setFilter} fullNameOptions={fullNameOptions}/>
                 <Button
                     sx={{
-                        height: '53px',
                         whiteSpace: 'nowrap',
                         px: 4,
                         width: {xs: '100%', md: 'auto'},
-                        mt: {xs: 2, md: 0}
+                        mt: {xs: 2, md: 0},
+                        height: '37px'
                     }}
                     onClick={() => setIsModalOpen(true)}
                     variant='contained'

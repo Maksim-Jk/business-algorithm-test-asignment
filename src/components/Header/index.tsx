@@ -65,10 +65,12 @@ const Header = () => {
                         >
                             {navBarPagesRoutes.map((page) => (
                                 <MenuItem key={page.name} onClick={handleCloseNavMenu} sx={{
+                                    padding: 0,
                                     'a': {
                                         display: 'block',
                                         textDecoration: 'none',
-                                        color: '#000000'
+                                        color: '#000000',
+                                        padding: '6px 16px'
                                     },
                                     '&:has(.active)': {bgcolor: 'primary.dark', color: '#ffffff'},
                                     '&:has(.active) a': {color: '#ffffff'},
@@ -79,19 +81,21 @@ const Header = () => {
                         </Menu>
                     </Box>
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}, gap: 1}}>
                         {navBarPagesRoutes.map((page) => (
                             <MenuItem
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{
                                     my: 2,
+                                    padding: 0,
                                     borderRadius: '6px',
                                     display: 'block',
                                     'a': {
                                         color: 'white',
                                         display: 'block',
                                         textDecoration: 'none',
+                                        padding: '6px 16px'
                                     },
                                     '&:has(.active)': {bgcolor: 'primary.dark'},
                                 }}

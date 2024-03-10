@@ -23,8 +23,10 @@ const EmployeesFilter: FC<Props> = ({filterOptions, setFilter, filter}) => {
                     <Autocomplete
                         key={key}
                         disablePortal
+                        size='small'
                         id={`combo-box-${key}`}
                         options={value}
+                        autoComplete={false}
                         sx={{width: {xs: '100%', md: '260px'},}}
                         value={filter[key as keyof IEmployeesFilter] || ''}
                         renderInput={(params) => (
