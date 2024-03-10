@@ -1,6 +1,5 @@
-import {FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "@/hooks";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,20 +10,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import {useAuth} from "@/hooks";
+
 const LoginPage = () => {
     const {setAuthUser} = useAuth();
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({login: 'init', password: 'init'})
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (userData.login.length &&
-            userData.password.length &&
-            userData.login !== 'init' &&
-            userData.password !== 'init') {
-            setAuthUser({login: userData.login, password: userData.password})
-            navigate('/employees')
-        } else {
-            setUserData({login: '', password: ''})
+    const [userData, setUserData] = useState({login: '', password: ''});
+    const [errors, setErrors] = useState({login: false, password: false});
+
+    const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserData({...userData, login: e.target.value});
+        setErrors({...errors, login: false});
+    };
+
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserData({...userData, password: e.target.value});
+        setErrors({...errors, password: false});
+    };
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+
+        if (!userData.login.length) {
+            setErrors(prevErrors => ({...prevErrors, login: true}));
+        }
+
+        if (!userData.password.length) {
+            setErrors(prevErrors => ({...prevErrors, password: true}));
+        }
+
+        if (userData.login && userData.password) {
+            setAuthUser({login: userData.login, password: userData.password});
+            navigate('/employees');
         }
     };
 
@@ -53,9 +70,11 @@ const LoginPage = () => {
                         id="login"
                         label="Логин"
                         name="login"
+                        autoComplete="username"
                         autoFocus
-                        error={!userData.login.length}
-                        onChange={(e) => setUserData({login: e.target.value, password: userData.password})}
+                        value={userData.login}
+                        onChange={handleLoginChange}
+                        error={errors.login}
                     />
                     <TextField
                         margin="normal"
@@ -66,8 +85,9 @@ const LoginPage = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        error={!userData.password.length}
-                        onChange={(e) => setUserData({login: userData.login, password: e.target.value})}
+                        value={userData.password}
+                        onChange={handlePasswordChange}
+                        error={errors.password}
                     />
                     <Button
                         type="submit"
@@ -80,7 +100,7 @@ const LoginPage = () => {
                 </Box>
             </Box>
         </Container>
-    )
+    );
 }
 
 export default LoginPage;

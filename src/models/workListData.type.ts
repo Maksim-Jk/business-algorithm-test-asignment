@@ -8,13 +8,6 @@ export interface IWorkListColumn {
     format?: (value: number | string) => string;
 }
 
-export interface IWorkListData {
-    id: number
-    name: string
-    date: string
-    employeeId: number
-}
-
 export interface IWorkListRows {
     id: number
     name: string
@@ -23,14 +16,15 @@ export interface IWorkListRows {
     employeeFullName: string
 }
 
-export interface IWorkListFilterOptions {
-    employeeId: number[]
-    employeeFullName: string[]
-    date: string[]
-}
-
 export interface IWorkListFilter {
     dateFrom: dayjs.Dayjs | null
     dateTo: dayjs.Dayjs | null
-    fullName: string | null
+    employeeFullName: string | null
+}
+
+export interface IWorkData {
+    id?: number
+    name?: string
+    employeeFullName?: string
+    date?: string
 }

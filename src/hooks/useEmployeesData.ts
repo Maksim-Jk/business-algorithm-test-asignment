@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import type {IEmployeesData, IEmployeesFilter, IEmployeesFilterOptions, IEmployeesRows} from "@/models";
 
-export const useEmployeesData = (filter: IEmployeesFilter) => {
+export const useEmployeesData = (filter?: IEmployeesFilter) => {
     const [rows, setRows] = useState<IEmployeesRows[]>([]);
     const [filteredRows, setFilteredRows] = useState<IEmployeesRows[]>([]);
 
@@ -37,17 +37,17 @@ export const useEmployeesData = (filter: IEmployeesFilter) => {
     useEffect(() => {
         let filteredRows = rows;
 
-        if (filter.individualIdentificationNumber) {
+        if (filter?.individualIdentificationNumber) {
             filteredRows = filteredRows
                 .filter(row => row.individualIdentificationNumber === filter.individualIdentificationNumber)
         }
 
-        if (filter.fullName) {
+        if (filter?.fullName) {
             filteredRows = filteredRows
                 .filter(row => row.fullName === filter.fullName)
         }
 
-        if (filter.phoneNumber) {
+        if (filter?.phoneNumber) {
             filteredRows = filteredRows
                 .filter(row => row.phoneNumber === filter.phoneNumber)
         }
@@ -55,7 +55,7 @@ export const useEmployeesData = (filter: IEmployeesFilter) => {
         setFilteredRows(filteredRows);
     }, [filter, rows]);
 
-    const rowsToReturn = filter.individualIdentificationNumber || filter.fullName || filter.phoneNumber ? filteredRows : rows
+    const rowsToReturn = filter?.individualIdentificationNumber || filter?.fullName || filter?.phoneNumber ? filteredRows : rows
 
     return {rows: rowsToReturn, filterOptions};
 }
