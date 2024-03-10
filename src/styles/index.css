@@ -41,3 +41,19 @@
 .fc-daygrid-day-frame {
     min-height: auto !important;
 }
+
+.fc-col-header-cell-cushion {
+    font-weight: 400;
+}
+
+.fc th {
+    text-align: right;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border: none
+}
+
+.fc-scrollgrid-sync-inner{
+    padding: 0 6px;
+}
